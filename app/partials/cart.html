@@ -1,0 +1,44 @@
+<!--<pre>{{cart.rows | json }}</pre>-->
+
+<table class="table table-bordered" ng-hide="cart.isEmpty()">
+    <tr>
+        <th></th>
+        <th>Titre</th>
+        <th>Prix</th>
+        <th>Quantité</th>
+        <th>Montant HT</th>
+        <th>Montant TTC</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="row in cart.rows" ng-class="{big : cart.isBold(row)}">
+        <td>
+            <img ng-src="{{row.book.img}}" alt=""/>
+        </td>
+        <td>
+            {{row.book.title}}
+        </td>
+        <td>
+            {{row.book.price | currency}}
+        </td>
+        <td>
+            <input class="form-control" type="number" ng-model="row.quantity"/>
+        </td>
+        <td>
+            {{cart.amountWithoutTax(row) | currency}}
+        </td>
+        <td>
+            {{cart.amountWithTax(row) | currency}}
+        </td>
+        <td>
+            <a class="deleteButton" href="" ng-click="cart.remove(row)"><span class="glyphicon glyphicon-remove" style="color: red;"></span></a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="font-weight: bold; text-align: right;">Total : </td>
+        <td> {{cart.totalWithoutTax() | currency}} </td>
+        <td> {{cart.totalWithTax()  | currency}} </td>
+        <td></td>
+    </tr>
+</table>
+
+<p ng-show="cart.isEmpty()">Votre panier est vide.</p>

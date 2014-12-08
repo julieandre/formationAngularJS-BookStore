@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div>
+            <img ng-src="{{book.img}}" alt="{{book.title}}" style="float: left; margin: 0 10px 10px 0;"/>
+            <h2>{{book.title}}</h2>
+            <span><span class="bold italique">Publisher :</span> {{book.publisher}}</span><br/>
+            <span><span class="bold italique">Author :</span> <span ng-bind-html="book.author | linky"></span></span><br/>
+            <span><span class="bold italique">Pages :</span> {{book.pages}}</span><br/>
+            <span><span class="bold italique">Rating :</span> <span my-rating="book.rating" my-rating-max="maxRating"></span></span><br/>
+            <span><span class="bold italique">Price :</span> {{book.price | currency}}</span><br/>
+
+        </div>
+        <hr style="clear: both;"/>
+        <p ng-bind-html="book.desc"></p>
+        <p style="text-align: right;"><br/><button class="button" ng-click="addToCart(book)">Ajouter au Panier</button></p>
+    </div>
+</div>

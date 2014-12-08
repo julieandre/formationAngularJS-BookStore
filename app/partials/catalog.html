@@ -1,0 +1,44 @@
+<div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>Recherche</h4>
+            <label for="searchTitle">Recherche un titre : </label><input class="form-control" id="searchTitle" ng-model="state.search.title" type="text" placeholder="Entrez un titre"/>
+            <br/>
+            <label>Interval de prix :</label>
+            <div class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <label class="sr-only" for="min">Prix min :</label>
+                        <input type="number" class="form-control" id="min" placeholder="Entrez un prix minimum" ng-model="state.min">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label class="sr-only" for="max">Prix min :</label>
+                        <input type="number" class="form-control" id="max" placeholder="Entrez un prix maximum" ng-model="state.max">
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <label for="orderBy">Trier par :</label> <select id="orderBy" class="form-control" ng-model="state.orderBy"
+                    ng-options="o.title for o in state.orderBys">
+        </select>
+        </div>
+    </div>
+    <p>Results : {{filteredItems.length}}</p>
+    <div class="row">
+        <div class="col-xs-12 col-md-4" ng-repeat="book in books | filter : state.search | interval:'price':state.min:state.max | orderBy:state.orderBy.value:state.orderBy.rev as filteredItems">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <center><a href="#/book/{{book._id.$oid}}"><img ng-src="{{book.img}}" alt="Image for {{book.title}}" style="max-height: 150px"/></a>
+                    <h4>{{book.title}}</h4>
+                    <span><span class="bold italique">Publisher :</span> {{book.publisher}}</span><br/>
+                    <span class="bold italique">Author :</span> <span ng-bind-html="book.author | linky"></span><br/>
+                    <span my-rating="book.rating" my-rating-max="maxRating"></span>
+                    <br/></center>
+                    <span style="float: left; display: inline-block; line-height: 28px; font-size: 16px" class="bold">{{book.price | currency}}</span><button style="float: right;" class="button" ng-click="addToCart(book)">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
